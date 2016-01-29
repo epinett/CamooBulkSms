@@ -1,5 +1,5 @@
 <?php
-    include_once( "CamooBulkSms.php" );
+    include_once( "src/CamooBulkSms.php" );
     /**
      * @Brief Send a sms
      *
