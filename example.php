@@ -11,6 +11,6 @@
 
 // Optional
     // Step 3: Display an overview of the message
-    echo $camoo_sms->displayOverview($info);
+    echo $oSMS->displayOverview($orSMS);
     // Done!
 ?>
