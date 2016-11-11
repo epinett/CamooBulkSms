@@ -8,7 +8,7 @@ class Base {
      /**
      * @var string The resource name as it is known at the server
      */
-    protected $resourceName;
+    protected $resourceName = NULL;
 
     /**
      * @param $resourceName
@@ -40,7 +40,7 @@ class Base {
      public function getEndPointUrl() {
          $sUrlTmp = $this->sEndPoint.static::DS.$this->camooClassicApiVersion.static::DS;
          $sResource = '';
-         if ( $this->getResourceName() !== 'sms' ) {
+         if ( $this->getResourceName() !== NULL && $this->getResourceName() !== 'sms' ) {
          	$sResource = static::DS.$this->getResourceName();
          }
          return sprintf($sUrlTmp.'sms'.$sResource.'%s','.json');
