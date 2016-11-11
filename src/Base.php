@@ -2,7 +2,7 @@
 
 class Base {
 
-    const $DS = '/';
+    const DS = '/';
     protected $sEndPoint = 'https://api.camoo.cm';
     
      /**
