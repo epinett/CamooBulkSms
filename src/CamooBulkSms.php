@@ -41,7 +41,7 @@ class CamooBulkSms extends Base{
      * This will also keep any debugging to a minimum due to
      * not worrying about which parser is being used.
      */
-    private $camoo_bulksms_uri = 'https://api.camoo.cm/v1/sms.json';
+    private $camoo_bulksms_uri = NULL;
 
 
     /**
@@ -61,8 +61,9 @@ class CamooBulkSms extends Base{
 
 
     public function __construct ($api_key, $api_secret) {
-        $this->cm_key = $api_key;
-        $this->cm_secret = $api_secret;
+        $this->cm_key            = $api_key;
+        $this->cm_secret         = $api_secret;
+        $this->camoo_bulksms_uri = $this->getEndPointUrl();
     }
 
     /**
