@@ -25,8 +25,9 @@
  *
  *
  */
+require_once 'Base.php';
 
-class CamooBulkSms {
+class CamooBulkSms extends Base{
 
     // Camoo account credentials
     private $cm_key     = NULL;
