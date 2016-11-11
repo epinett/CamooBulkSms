@@ -2,6 +2,14 @@
 
 class Base {
 
+    const $DS = '/';
+    protected $sEndPoint = 'https://api.camoo.cm';
+    
+     /**
+     * @var string The resource name as it is known at the server
+     */
+    protected $resourceName;
+
     /**
      * @param $resourceName
      */
@@ -16,4 +24,25 @@ class Base {
     {
         return $this->resourceName;
     }
+        
+      /**
+      * Target version for "Classic" Camoo API
+      */
+     protected $camooClassicApiVersion = 'v1';
+
+
+     /**
+      * Returns the CAMOO API URL
+      *-
+      * @return string
+      * @author Epiphane Tchabom 
+      **/
+     public function getEndPointUrl() {
+         $sUrlTmp = $this->sEndPoint.static::DS.$this->camooClassicApiVersion.static::DS;
+         $sResource = '';
+         if ( $this->getResourceName() !== 'sms' ) {
+         	$sResource = static::DS.$this->getResourceName();
+         }
+         return sprintf($sUrlTmp.'sms'.$sResource.'%s','.json');
+     }
 }
