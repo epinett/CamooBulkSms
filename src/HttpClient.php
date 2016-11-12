@@ -15,7 +15,7 @@ class HttpClient {
     const REQUEST_POST = 'POST';
 
     const HTTP_NO_CONTENT = 204;
-    const CLIENT_VERSION = 1.2.0;
+    const CLIENT_VERSION = '1.2.0';
     /**
      * @var string
      */
