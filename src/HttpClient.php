@@ -112,7 +112,7 @@ class HttpClient {
             curl_setopt($to_camoo, CURLOPT_POST, true);
             curl_setopt( $to_camoo, CURLOPT_POSTFIELDS, $post );
         } 
-        curl_setopt($to_camoo, CURLOPT_URL, $this->endpoint)
+        curl_setopt($to_camoo, CURLOPT_URL, $this->endpoint);
             $from_camoo = curl_exec( $to_camoo );
             curl_close ( $to_camoo );
         } elseif (ini_get('allow_url_fopen')) {
