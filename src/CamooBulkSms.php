@@ -26,6 +26,7 @@
  *
  */
 require_once 'Base.php';
+require_once 'HttpClient.php';
 
 class CamooBulkSms extends Base{
 
@@ -113,48 +114,14 @@ class CamooBulkSms extends Base{
      * Prepare and send a new message.
      */
     private function sendRequest ( $data ) {
-        // Build the post data
-        $data = array_merge($data, ['api_key' => $this->cm_key, 'api_secret' => $this->cm_secret]);
-        $post = '';
-        foreach($data as $k => $v){
-            $post .= "&$k=$v";
+        try {
+           $hAuth =  ['api_key' => $this->cm_key, 'api_secret' => $this->cm_secret];
+           $oHttpClient = new HttpClient($this->camoo_bulksms_uri, $hAuth);
+           return $this->camooParse( $oHttpClient->performRequest('POST', $data));
+        } catch( \CamooSmsException $err ) {
+            throw new \CamooSmsException('SMS Request can not be performed!');
         }
-
-        // If available, use CURL
-        if (function_exists('curl_version')) {
-
-            $to_camoo = curl_init( $this->camoo_bulksms_uri );
-            curl_setopt( $to_camoo, CURLOPT_POST, true );
-            curl_setopt( $to_camoo, CURLOPT_RETURNTRANSFER, true );
-            curl_setopt( $to_camoo, CURLOPT_POSTFIELDS, $post );
-
-            if (!$this->ssl_verify) {
-                curl_setopt( $to_camoo, CURLOPT_SSL_VERIFYPEER, false);
-            }
-
-            $from_camoo = curl_exec( $to_camoo );
-            curl_close ( $to_camoo );
-
-        } elseif (ini_get('allow_url_fopen')) {
-            // No CURL available so try the awesome file_get_contents
-
-            $opts = array('http' =>
-                array(
-                    'method'  => 'POST',
-                    'header'  => 'Content-type: application/x-www-form-urlencoded',
-                    'content' => $post
-                )
-            );
-            $context = stream_context_create($opts);
-            $from_camoo = file_get_contents($this->camoo_bulksms_uri, false, $context);
-
-        } else {
-            // No way of sending a HTTP post
-            return false;
-        }
-        return $this->camooParse( $from_camoo );
     }
-
 
     /**
      * Recursively normalise any key names in an object, removing unwanted characters
