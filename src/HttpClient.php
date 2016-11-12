@@ -15,7 +15,7 @@ class HttpClient {
     const REQUEST_POST = 'POST';
 
     const HTTP_NO_CONTENT = 204;
-	 const CLIENT_VERSION = 1.2.0;
+    const CLIENT_VERSION = 1.2.0;
     /**
      * @var string
      */
@@ -53,11 +53,10 @@ class HttpClient {
      */
     public function __construct($endpoint, $hAuthentication, $timeout = 10, $connectionTimeout = 2) {
         $this->endpoint = $endpoint;
-
+	$this->oAuthentication = $hAuthentication;
     
         $this->addUserAgentString('CamooSms/ApiClient/' . static::CLIENT_VERSION);
         $this->addUserAgentString($this->getPhpVersion());
-
 
         if (!is_int($connectionTimeout) || $connectionTimeout < 0) {
             throw new \HttpClientException(sprintf(
