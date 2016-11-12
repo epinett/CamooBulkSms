@@ -9,4 +9,18 @@
  
     var_export($oSMS->getBalance());
 
+// output:
+/*
+stdClass Object
+(
+    [message] => OK
+    [balance] => stdClass Object
+        (
+            [balance] => 910
+            [currency] => XAF
+        )
+
+)*/
+
+
 ?>
