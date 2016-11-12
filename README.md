@@ -5,7 +5,7 @@ Quick Examples
 
 1) Sending an SMS
 
-    $oSMS = new CamooBulkSms('account_key', 'account_secret');
+    $oSMS = new CamooSms('account_key', 'account_secret');
     $orSMS = $oSMS->sendText( '+237623456790', 'MyApp', 'Hello Kmer world!' );
   
 2) Display an overview of a successfully sent message
