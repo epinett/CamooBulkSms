@@ -89,22 +89,14 @@ class HttpClient {
      public function performRequest( $method, $data=array()) {
         // Build the post data
         $data = array_merge($data, $this->oAuthentication);
+	$data['user_agent'] = implode(' ', $this->userAgent);
         $post = '';
         foreach ( $data as $k => $v ) {
             $post .= "&$k=$v";
         }
         // If available, use CURL
         if (function_exists('curl_version')) {
-        	 $headers = array (
-            'User-agent: ' . implode(' ', $this->userAgent),
-            'Accepts: application/json',
-            'Content-Type: application/json',
-            'Accept-Charset: utf-8',
-        );
             $to_camoo = curl_init( $this->endpoint );
-            
-            curl_setopt($to_camoo, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($to_camoo, CURLOPT_HEADER, true);
             curl_setopt($to_camoo, CURLOPT_RETURNTRANSFER, true );
             curl_setopt($to_camoo, CURLOPT_TIMEOUT, $this->timeout);
             curl_setopt($to_camoo, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
