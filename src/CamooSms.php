@@ -282,13 +282,17 @@ class CamooSms extends Base{
         return $ret;
     }
     
+    /**
+    * read the current user balance
+    * @return mixed Balance
+    */
      public function getBalance() {
        try {
            $this->setResourceName('balance');
            $oHttpClient = new HttpClient($this->getEndPointUrl(), $this->oCredentials);
            return $oHttpClient->performRequest('GET');
         } catch( \CamooSmsException $err ) {
-            throw new \CamooSmsException('SMS Request can not be performed!');
+            throw new \CamooSmsException('Balance Request can not be performed!');
         }
     }
 
