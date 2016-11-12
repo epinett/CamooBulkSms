@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class CamooSmsException
+ *
+ */
+abstract class CamooSmsException extends \Exception {}
 class Base {
 
     const DS = '/';
