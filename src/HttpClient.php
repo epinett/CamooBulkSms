@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class HttpClientException
+ *
+ */
+abstract class HttpClientException extends \Exception {}
 
 /**
  * Class HttpClient
@@ -44,7 +49,7 @@ class HttpClient {
      * @param int $timeout > 0
      * @param int $connectionTimeout >= 0
      *
-     * @throws \CamooSmsException if timeout settings are invalid
+     * @throws \HttpClientException if timeout settings are invalid
      */
     public function __construct($endpoint, $hAuthentication, $timeout = 10, $connectionTimeout = 2) {
         $this->endpoint = $endpoint;
@@ -55,7 +60,7 @@ class HttpClient {
 
 
         if (!is_int($connectionTimeout) || $connectionTimeout < 0) {
-            throw new \CamooSmsException(sprintf(
+            throw new \HttpClientException(sprintf(
                 'Connection timeout must be an int >= 0, got "%s".',
                 is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout).' '.var_export($connectionTimeout, true))
             );
@@ -79,7 +84,7 @@ class HttpClient {
      *
      * @return array
      *
-     * @throws CamooSmsException
+     * @throws HttpClientException
      */
    
      public function performRequest( $method, $data ) {
@@ -103,7 +108,7 @@ class HttpClient {
             curl_setopt($to_camoo, CURLOPT_HEADER, true);
             curl_setopt($to_camoo, CURLOPT_RETURNTRANSFER, true );
             curl_setopt($to_camoo, CURLOPT_TIMEOUT, $this->timeout);
-        		curl_setopt($to_camoo, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
+            curl_setopt($to_camoo, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
 
             if (!$this->ssl_verify) {
                 curl_setopt( $to_camoo, CURLOPT_SSL_VERIFYPEER, false);
@@ -131,7 +136,7 @@ class HttpClient {
             $from_camoo = file_get_contents($this->endpoint, false, $context);
         } else {
             // No way of sending a HTTP post
-            throw new \CamooSmsException('No way of sending a HTTP Request');
+            throw new \HttpClientException('No way of sending a HTTP Request');
         
         }
         return $from_camoo;
