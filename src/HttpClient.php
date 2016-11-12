@@ -96,7 +96,7 @@ class HttpClient {
         }
         // If available, use CURL
         if (function_exists('curl_version')) {
-            $to_camoo = curl_init( $this->endpoint );
+            $to_camoo = curl_init();
             curl_setopt($to_camoo, CURLOPT_RETURNTRANSFER, true );
             curl_setopt($to_camoo, CURLOPT_TIMEOUT, $this->timeout);
             curl_setopt($to_camoo, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
@@ -107,11 +107,12 @@ class HttpClient {
             
          if ( $method === static::REQUEST_GET ) {
             curl_setopt($to_camoo, CURLOPT_HTTPGET, true);
+	    $this->endpoint .='?'.$post;
         } elseif ($method === static::REQUEST_POST ) {
             curl_setopt($to_camoo, CURLOPT_POST, true);
             curl_setopt( $to_camoo, CURLOPT_POSTFIELDS, $post );
         } 
-        
+        curl_setopt($to_camoo, CURLOPT_URL, $this->endpoint)
             $from_camoo = curl_exec( $to_camoo );
             curl_close ( $to_camoo );
         } elseif (ini_get('allow_url_fopen')) {
