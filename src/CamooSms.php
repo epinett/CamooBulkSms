@@ -290,7 +290,7 @@ class CamooSms extends Base{
        try {
            $this->setResourceName('balance');
            $oHttpClient = new HttpClient($this->getEndPointUrl(), $this->oCredentials);
-           return $oHttpClient->performRequest('GET');
+           return $this->decode($oHttpClient->performRequest('GET'));
         } catch( \CamooSmsException $err ) {
             throw new \CamooSmsException('Balance Request can not be performed!');
         }
