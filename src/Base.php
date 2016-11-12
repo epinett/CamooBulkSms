@@ -55,4 +55,22 @@ class Base {
          }
          return sprintf($sUrlTmp.'sms'.$sResource.'%s','.json');
      }
+    
+     /**
+      * decode json string
+      * @throw CamooSmsException
+      * @author Epiphane Tchabom 
+      */
+     protected function decode($sJSON, $bAsHash=false) {
+         try {
+             if (   ($xData = json_decode($sJSON, $bAsHash)) === NULL
+                 && (json_last_error() !== JSON_ERROR_NONE) ) {
+                     throw new \CamooSmsException(json_last_error_msg());
+                 }
+         } catch ( \Exception $e ) {
+             return $e->getMessage();
+         }
+         return $xData;
+     }
+
 }
