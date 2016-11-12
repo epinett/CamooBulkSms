@@ -86,11 +86,11 @@ class HttpClient {
      * @throws HttpClientException
      */
    
-     public function performRequest( $method, $data ) {
+     public function performRequest( $method, $data=array()) {
         // Build the post data
         $data = array_merge($data, $this->oAuthentication);
         $post = '';
-        foreach($data as $k => $v){
+        foreach ( $data as $k => $v ) {
             $post .= "&$k=$v";
         }
         // If available, use CURL
