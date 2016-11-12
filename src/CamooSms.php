@@ -5,7 +5,7 @@
  * @copyright (c) camoo.cm
  * @license: You are not allowed to sell or distribute this software without permission
  * Copyright reserved
- * File: CamooBulkSms.php
+ * File: CamooSms.php
  * updated: Jan 2015
  * Created by: Epiphane Tchabom (e.tchabom@camoo.cm)
  * Description: CAMOO BULKSMS LIB
@@ -28,22 +28,10 @@
 require_once 'Base.php';
 require_once 'HttpClient.php';
 
-class CamooBulkSms extends Base{
+class CamooSms extends Base{
 
     // Camoo account credentials
-    private $cm_key     = NULL;
-    private $cm_secret  = NULL;
-
-    /**
-     * @var string Camoo server URI
-     *
-     * We're sticking with the JSON interface here since json
-     * parsing is built into PHP and requires no extensions.
-     * This will also keep any debugging to a minimum due to
-     * not worrying about which parser is being used.
-     */
-    private $camoo_bulksms_uri = NULL;
-
+    private $oCredentials = [];    
 
     /**
      * @var array The most recent parsed Camoo response.
@@ -62,9 +50,7 @@ class CamooBulkSms extends Base{
 
 
     public function __construct ($api_key, $api_secret) {
-        $this->cm_key            = $api_key;
-        $this->cm_secret         = $api_secret;
-        $this->camoo_bulksms_uri = $this->getEndPointUrl();
+        $this->oCredentials = ['api_key' => $api_key, 'api_secret' => $api_secret];
     }
 
     /**
@@ -107,16 +93,16 @@ class CamooBulkSms extends Base{
             'message' => $sMessage,
             'type'    => $containsUnicode ? 'unicode' : 'text'
         ];
-        return $this->sendRequest ( $hPost );
+        return $this->sendSmsRequest( $hPost );
     }
 
     /**
      * Prepare and send a new message.
      */
-    private function sendRequest ( $data ) {
+    private function sendSmsRequest( $data ) {
         try {
-           $hAuth =  ['api_key' => $this->cm_key, 'api_secret' => $this->cm_secret];
-           $oHttpClient = new HttpClient($this->camoo_bulksms_uri, $hAuth);
+           $this->camoo_bulksms_uri = $this->getEndPointUrl();
+           $oHttpClient = new HttpClient($this->camoo_bulksms_uri, $this->oCredentials);
            return $this->camooParse( $oHttpClient->performRequest('POST', $data));
         } catch( \CamooSmsException $err ) {
             throw new \CamooSmsException('SMS Request can not be performed!');
@@ -294,6 +280,16 @@ class CamooBulkSms extends Base{
         }
 
         return $ret;
+    }
+    
+     public function getBalance() {
+       try {
+           $this->setResourceName('balance');
+           $oHttpClient = new HttpClient($this->getEndPointUrl(), $this->oCredentials);
+           return $oHttpClient->performRequest('GET');
+        } catch( \CamooSmsException $err ) {
+            throw new \CamooSmsException('SMS Request can not be performed!');
+        }
     }
 
 }
