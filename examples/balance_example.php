@@ -1,5 +1,5 @@
 <?php
-    include_once( "../src/CamooSms.php" );
+    include_once( "src/CamooSms.php" );
     /**
      * @Brief read current balance
      *
