@@ -295,5 +295,22 @@ class CamooSms extends Base{
             throw new \CamooSmsException('Balance Request can not be performed!');
         }
     }
+    
+    /**
+    * Initiate a topup to recharge a user account
+    * Only available for MTN Mobile Money Cameroon
+    *
+    * @param $hData, ['phonenumber' => '671234567', 'amount' => 1000]
+    * @return mixed Trx
+    */
+     public function topup($hData) {
+       try {
+           $this->setResourceName('topup');
+           $oHttpClient = new HttpClient($this->getEndPointUrl(), $this->oCredentials);
+           return $this->decode($oHttpClient->performRequest('POST', $hData));
+        } catch( \CamooSmsException $err ) {
+            throw new \CamooSmsException('Topup Request can not be performed!');
+        }
+    }
 
 }
