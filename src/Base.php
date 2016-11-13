@@ -4,7 +4,7 @@
  * Class CamooSmsException
  *
  */
-abstract class CamooSmsException extends \Exception {}
+class CamooSmsException extends \Exception {}
 
 /**
  * Class CamooSms Base
