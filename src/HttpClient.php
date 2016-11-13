@@ -4,7 +4,7 @@
  * Class HttpClientException
  *
  */
-abstract class HttpClientException extends \Exception {}
+class HttpClientException extends \Exception {}
 
 /**
  * Class HttpClient
