@@ -325,7 +325,7 @@ class CamooSms extends Base{
            $oHttpClient = new HttpClient($this->getEndPointUrl(), $this->oCredentials);
            return $this->decode($oHttpClient->performRequest('GET', ['id' => $xMessageId]));
         } catch( \CamooSmsException $err ) {
-            throw new \CamooSmsException('Topup Request can not be performed!');
+            throw new \CamooSmsException('View Request can not be performed!');
         }
     }
 
