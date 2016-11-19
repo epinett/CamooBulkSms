@@ -312,5 +312,21 @@ class CamooSms extends Base{
             throw new \CamooSmsException('Topup Request can not be performed!');
         }
     }
+    
+    /**
+    * Read a sent message by Id
+    *
+    * @param $xMessageId, message ID
+    * @return mixed Message
+    */
+     public function view($xMessageId) {
+       try {
+           $this->setResourceName('view');
+           $oHttpClient = new HttpClient($this->getEndPointUrl(), $this->oCredentials);
+           return $this->decode($oHttpClient->performRequest('GET', ['id' => $xMessageId]));
+        } catch( \CamooSmsException $err ) {
+            throw new \CamooSmsException('Topup Request can not be performed!');
+        }
+    }
 
 }
