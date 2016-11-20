@@ -89,7 +89,7 @@ class CamooSms extends Base{
         // Send away!
         $hPost = [
             'from'    => $sFrom,
-            'to'      => !is_arrar($to)? $to : explode(',', $to),
+            'to'      => !is_array($to)? $to : implode(',', $to),
             'message' => $sMessage,
             'type'    => $containsUnicode ? 'unicode' : 'text'
         ];
