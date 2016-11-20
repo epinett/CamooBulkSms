@@ -1,9 +1,16 @@
 # CamooBulkSms
 PHP SMS API Sending SMS via the CAMOO SMS gateway
 
+Requirement
+-----------
+
+This library needs minimum requirement for doing well on run.
+
+    * PHP               : version 5.4.x and above
+
 Quick Examples
 
-1) Sending an SMS
+1) Sending a SMS
 
     $oSMS = new CamooSms('account_key', 'account_secret');
     $orSMS = $oSMS->sendText( '+237623456790', 'MyApp', 'Hello Kmer world!' );
@@ -11,6 +18,12 @@ Quick Examples
 2) Display an overview of a successfully sent message
 
     echo $oSMS->displayOverview($orSMS);
+    
+3)  Send the same SMS to many recipients
+    
+     $oSMS = new CamooSms('account_key', 'account_secret');
+     $orSMS = $oSMS->sendText( ['+237623456790', '+237623456791', '+237623456792'], 'MyApp', 'Hello Kmer world!' );
+     var_dump($orSMS);
     
 Most Frequent Issues
 --------------------
