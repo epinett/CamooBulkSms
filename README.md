@@ -6,9 +6,9 @@ Requirement
 
 This library needs minimum requirement for doing well on run.
 
-      - [Sign up](https://www.camoo.cm/join) for a free CAMOO SMS account
-      - Ask CAMOO Team for new access_key for developers
-      - CAMOO SMS API client for PHP requires version 5.4.x and above
+   - [Sign up](https://www.camoo.cm/join) for a free CAMOO SMS account
+   - Ask CAMOO Team for new access_key for developers
+   - CAMOO SMS API client for PHP requires version 5.4.x and above
 
 Quick Examples
 
