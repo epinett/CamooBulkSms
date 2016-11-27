@@ -9,11 +9,14 @@
     // Step 2: Use sendText( $to, $from, $message ) method to send a message.
     $orSMS = $oSMS->sendText( '+237612345678', 'YourCompany', 'Hello kmer world!' );
 
-    // OR Send the same message to multi-recipients
-     $orSMS = $oSMS->sendText( ['+237612345678', '+237612345679', '+237612345610',], 'YourCompany', 'Hello kmer world!' );
-
-// Optional
+    // Optional
     // Step 3: Display an overview of the message
     echo $oSMS->displayOverview($orSMS);
     // Done!
+
+    // OR Send the same message to multi-recipients
+    // Per request, a max of 50 recipients can be entered.
+     $orSMS = $oSMS->sendText( ['+237612345678', '+237612345679', '+237612345610',], 'YourCompany', 'Hello kmer world!' );
+
+
 ?>
