@@ -54,7 +54,7 @@ ATTRIBUTES
 
 
 | Attribute     | Type          | Description  |
-| ------------- |:-------------:| -----:|
+| ------------- |:-------------:|:-----:|
 | id            | string        | An unique random ID which is created on the CAMOO platform and is returned upon creation of the object. |
 | recipient     | string        | The recipient where this status rapport applies to. |
 | status        | string        | The status of the message sent to the recipient. Possible values: scheduled, sent, buffered, delivered, expired, anddelivery_failed |
