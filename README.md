@@ -1,5 +1,5 @@
 # CamooBulkSms
-[![N|Solid](https://www.camoo.cm/img/icon/camoo_logo_thom1.png)](https://www.camoo.cm/bulk-sms)
+[![N|Solid](https://www.camoo.cm/img/icon/camoo_logo_thom1.png) SMS](https://www.camoo.cm/bulk-sms)
 
 PHP SMS API Sending SMS via the CAMOO SMS gateway
 
