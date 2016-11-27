@@ -57,8 +57,8 @@ ATTRIBUTES
 | ------------- |:-------------:|:-----:|
 | id            | string        | An unique random ID which is created on the CAMOO platform and is returned upon creation of the object. |
 | recipient     | string        | The recipient where this status rapport applies to. |
-| status        | string        | The status of the message sent to the recipient. Possible values: scheduled, sent, buffered, delivered, expired, anddelivery_failed |
-| statusDatetime| datetime      | The datum time of this status in RFC3339 format date('Y-m-d H:i:s') |
+| status        | string        | The status of the message sent to the recipient. Possible values: `scheduled`, `sent`, `buffered`, `delivered`, `expired`, `anddelivery_failed` |
+| statusDatetime| datetime      | The time of this status in RFC3339 format date('Y-m-d H:i:s') |
 
 
 REQUEST
