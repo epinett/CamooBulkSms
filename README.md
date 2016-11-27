@@ -1,7 +1,6 @@
-# CamooBulkSms
-[![N|Solid](https://www.camoo.cm/img/icon/camoo_logo_thom1.png) SMS](https://www.camoo.cm/bulk-sms)
+[![N|Solid](https://www.camoo.cm/img/icon/camoo_logo_thom1.png)](https://www.camoo.cm/bulk-sms)
 
-PHP SMS API Sending SMS via the CAMOO SMS gateway
+PHP SMS API Sending SMS via the **_CAMOO SMS gateway_**
 
 Requirement
 -----------
@@ -53,11 +52,14 @@ Status rapports are requests that are sent to your platform through a GET reques
 
 ATTRIBUTES
 
-    Attribute	    Type	    Description
-    id	            string	     An unique random ID which is created on the CAMOO platform and is returned upon creation of the object.
-    recipient	    string	     The recipient where this status rapport applies to.
-    status	        string	     The status of the message sent to the recipient. Possible values: scheduled, sent, buffered, delivered, expired, anddelivery_failed
-    statusDatetime	datetime    The datum time of this status in RFC3339 format date('Y-m-d H:i:s')
+
+| Attribute     | Type          | Description  |
+| ------------- |:-------------:| -----:|
+| id            | string        | An unique random ID which is created on the CAMOO platform and is returned upon creation of the object. |
+| recipient     | string        | The recipient where this status rapport applies to. |
+| status        | string        | The status of the message sent to the recipient. Possible values: scheduled, sent, buffered, delivered, expired, anddelivery_failed |
+| statusDatetime| datetime      | The datum time of this status in RFC3339 format date('Y-m-d H:i:s') |
+
 
 REQUEST
 
