@@ -15,18 +15,14 @@ Quick Examples
 
 1) Sending a SMS
 ```php
-    $oSMS = new CamooSms('account_key', 'account_secret');
+    $oSMS = new Camoo\Sms\Sms('account_key', 'account_secret');
     $orSMS = $oSMS->sendText( '+237623456790', 'MyApp', 'Hello Kmer world!' );
   ```
-2) Display an overview of a successfully sent message
-```php
-    echo $oSMS->displayOverview($orSMS);
-```
-3)  Send the same SMS to many recipients
+2)  Send the same SMS to many recipients
             
             - Per request, a max of 50 recipients can be entered.
 ```php
-     $oSMS = new CamooSms('account_key', 'account_secret');
+     $oSMS = new Camoo\Sms\Sms('account_key', 'account_secret');
      $orSMS = $oSMS->sendText( ['+237623456790', '+237623456791', '+237623456792'], 'MyApp', 'Hello Kmer world!' );
      var_dump($orSMS);
 ```

@@ -31,8 +31,9 @@ $date   = $_GET['statusDatetime'];
 
 //Check if all data was received and return error if any data is missing.
 
-if($id=='' || !$status=='' || !$phone=='' || !$date==''){
-	header('HTTP/1.1 400 Bad Request', true, 400);die();
+if ($id=='' || !$status=='' || !$phone=='' || !$date=='') {
+    header('HTTP/1.1 400 Bad Request', true, 400);
+    die();
 }
 
 /**
@@ -58,23 +59,21 @@ status_date		datetime	*/
 $stmt=$pdo->prepare('SELECT HIGH_PRIORITY * FROM sms_messages WHERE camoo_sms_id=? and phone=?');
 $stmt->execute(array($id,$phone));
 
-if($stmt->rowCount()>0){
-	
-	/*If YES update the matching record with the DLR data*/
-	$row=$stmt->fetch();
-	$stmt=$pdo->prepare('UPDATE sms_messages SET status=?,status_date=? WHERE id=?');
-	if(!$stmt->execute(array($status,$date,$row['id']))){
-		
-		/*If update failed, return error*/
-		header('HTTP/1.1 400 Bad Request', true, 400);die();
-	}else{
-		/*If update was successfull, return ok*/
-		header('HTTP/1.1 200 OK', true, 200);die();
-	}
-}else{
-	/*If NO matching record for DLR data was found, return error*/
-	header('HTTP/1.1 400 Bad Request', true, 400);die();
+if ($stmt->rowCount()>0) {
+    /*If YES update the matching record with the DLR data*/
+    $row=$stmt->fetch();
+    $stmt=$pdo->prepare('UPDATE sms_messages SET status=?,status_date=? WHERE id=?');
+    if (!$stmt->execute(array($status,$date,$row['id']))) {
+        /*If update failed, return error*/
+        header('HTTP/1.1 400 Bad Request', true, 400);
+        die();
+    } else {
+        /*If update was successfull, return ok*/
+        header('HTTP/1.1 200 OK', true, 200);
+        die();
+    }
+} else {
+    /*If NO matching record for DLR data was found, return error*/
+    header('HTTP/1.1 400 Bad Request', true, 400);
+    die();
 }
-
-
-?>
