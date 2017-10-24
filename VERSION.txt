@@ -1,0 +1,17 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// +--------------------------------------------------------------------------------------------+ //
+// Camoo/Sms Version
+//
+// Holds a static string representing the current version of CAMOO/Airtime
+//
+// Copyright     Copyright (c) CAMOO SARL (http://camoo.cm)
+//
+// Licensed under The MIT License
+// Redistributions of files must retain the above copyright notice.
+//
+// @copyright     Copyright (c) CAMOO SARL (http://camoo.cm)
+// @link          http://camoo.cm
+// @license       http://www.opensource.org/licenses/mit-license.php MIT License
+// +--------------------------------------------------------------------------------------------+ //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+1.2.1

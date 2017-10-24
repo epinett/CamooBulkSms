@@ -1,11 +1,11 @@
 <?php
- include_once( "src/CamooSms.php" );
+    require_once(dirname(__DIR__)."/src/Sms.php");
     /**
      * @Brief recharge user account
      * Only available for Mobile Money MTN Cameroon Ltd
      */
-    // Step 1: Declare new CamooSms.
-    $oSMS = new CamooSms('api_key', 'secret_key');
+    // Step 1: Declare new Camoo\Sms\Sms.
+    $oSMS = new Camoo\Sms\Sms('api_key', 'secret_key');
 
     var_export($oSMS->topup(['phonenumber' => '671234567', 'amount' => 4000]));
 
@@ -30,7 +30,3 @@ stdClass Object
     - Choose the option to approve the Payment
     - Choose option and confirm  
 */
-
-
-
-?>                  
