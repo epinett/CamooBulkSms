@@ -1,7 +1,7 @@
 <?php
 namespace Camoo\Sms;
 
-require_once('Exception\HttpClientException.php');
+require_once('Exception/HttpClientException.php');
 
 use Camoo\Sms\Exception\HttpClientException;
 
