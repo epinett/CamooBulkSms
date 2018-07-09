@@ -1,21 +1,21 @@
 <?php
+namespace Camoo\Sms;
 
-/**
- * Class HttpClientException
- *
- */
-class HttpClientException extends \Exception {}
+require_once('Exception/HttpClientException.php');
+
+use Camoo\Sms\Exception\HttpClientException;
 
 /**
  * Class HttpClient
  *
  */
-class HttpClient {
+class HttpClient
+{
     const REQUEST_GET = 'GET';
     const REQUEST_POST = 'POST';
 
     const HTTP_NO_CONTENT = 204;
-    const CLIENT_VERSION = '1.2.0';
+    const CLIENT_VERSION = '1.2.1';
     /**
      * @var string
      */
@@ -51,18 +51,19 @@ class HttpClient {
      *
      * @throws \HttpClientException if timeout settings are invalid
      */
-    public function __construct($endpoint, $hAuthentication, $timeout = 10, $connectionTimeout = 2) {
+    public function __construct($endpoint, $hAuthentication, $timeout = 10, $connectionTimeout = 2)
+    {
         $this->endpoint = $endpoint;
-	$this->oAuthentication = $hAuthentication;
+        $this->oAuthentication = $hAuthentication;
     
         $this->addUserAgentString('CamooSms/ApiClient/' . static::CLIENT_VERSION);
         $this->addUserAgentString($this->getPhpVersion());
 
         if (!is_int($connectionTimeout) || $connectionTimeout < 0) {
-            throw new \HttpClientException(sprintf(
+            throw new HttpClientException(sprintf(
                 'Connection timeout must be an int >= 0, got "%s".',
-                is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout).' '.var_export($connectionTimeout, true))
-            );
+                is_object($connectionTimeout) ? get_class($connectionTimeout) : gettype($connectionTimeout).' '.var_export($connectionTimeout, true)
+            ));
         }
 
         $this->connectionTimeout = $connectionTimeout;
@@ -86,7 +87,8 @@ class HttpClient {
      * @throws HttpClientException
      */
    
-     public function performRequest( $method, $data=array()) {
+    public function performRequest($method, $data = array())
+    {
         // Build the post data
         $data = array_merge($data, $this->oAuthentication);
 	$data['user_agent'] = implode(' ', $this->userAgent);
@@ -94,28 +96,28 @@ class HttpClient {
         // If available, use CURL
         if (function_exists('curl_version')) {
             $to_camoo = curl_init();
-            curl_setopt($to_camoo, CURLOPT_RETURNTRANSFER, true );
+            curl_setopt($to_camoo, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($to_camoo, CURLOPT_TIMEOUT, $this->timeout);
             curl_setopt($to_camoo, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
 
             if (!$this->ssl_verify) {
-                curl_setopt( $to_camoo, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($to_camoo, CURLOPT_SSL_VERIFYPEER, false);
             }
             
-         if ( $method === static::REQUEST_GET ) {
-            curl_setopt($to_camoo, CURLOPT_HTTPGET, true);
-	    $this->endpoint .='?'.$post;
-        } elseif ($method === static::REQUEST_POST ) {
-            curl_setopt($to_camoo, CURLOPT_POST, true);
-            curl_setopt( $to_camoo, CURLOPT_POSTFIELDS, $post );
-        } 
-        curl_setopt($to_camoo, CURLOPT_URL, $this->endpoint);
-            $from_camoo = curl_exec( $to_camoo );
-            curl_close ( $to_camoo );
+            if ($method === static::REQUEST_GET) {
+                curl_setopt($to_camoo, CURLOPT_HTTPGET, true);
+                $this->endpoint .='?'.$post;
+            } elseif ($method === static::REQUEST_POST) {
+                curl_setopt($to_camoo, CURLOPT_POST, true);
+                curl_setopt($to_camoo, CURLOPT_POSTFIELDS, $post);
+            }
+            curl_setopt($to_camoo, CURLOPT_URL, $this->endpoint);
+            $from_camoo = curl_exec($to_camoo);
+            curl_close($to_camoo);
         } elseif (ini_get('allow_url_fopen')) {
             // No CURL available so try the awesome file_get_contents
 	    if ($method === static::REQUEST_GET) {
-		$this->endpoint .="?". $post;
+                $this->endpoint .='?'.$post;
 	    }
 
             $opts = array('http' =>
@@ -129,16 +131,16 @@ class HttpClient {
             $from_camoo = file_get_contents($this->endpoint, false, $context);
         } else {
             // No way of sending a HTTP post
-            throw new \HttpClientException('No way of sending a HTTP Request');
-        
+            throw new HttpClientException('No way of sending a HTTP Request');
         }
         return $from_camoo;
     }
-	
+    
      /**
      * @return string
      */
-    private function getPhpVersion() {
+    private function getPhpVersion()
+    {
         if (!defined('PHP_VERSION_ID')) {
             $version = explode('.', PHP_VERSION);
             define('PHP_VERSION_ID', $version[0] * 10000 + $version[1] * 100 + $version[2]);
