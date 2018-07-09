@@ -90,10 +90,7 @@ class HttpClient {
         // Build the post data
         $data = array_merge($data, $this->oAuthentication);
 	$data['user_agent'] = implode(' ', $this->userAgent);
-        $post = '';
-        foreach ( $data as $k => $v ) {
-            $post .= "&$k=$v";
-        }
+        $post = http_build_query($data);
         // If available, use CURL
         if (function_exists('curl_version')) {
             $to_camoo = curl_init();
@@ -117,6 +114,10 @@ class HttpClient {
             curl_close ( $to_camoo );
         } elseif (ini_get('allow_url_fopen')) {
             // No CURL available so try the awesome file_get_contents
+	    if ($method === static::REQUEST_GET) {
+		$this->endpoint .="?". $post;
+	    }
+
             $opts = array('http' =>
                 array(
                     'method'  => $method,
